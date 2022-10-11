@@ -6,7 +6,6 @@ import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -143,11 +142,11 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
   ) {
     try {
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-        promise.reject("Error: ", "false");
+        promise.reject("Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP");
         return;
       }
       if (getCurrentActivity() == null) {
-        promise.reject("Error: ", "false");
+        promise.reject("getCurrentActivity() == null");
         return;
       }
       final Window view = getCurrentActivity().getWindow();
@@ -196,10 +195,10 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
           }
         }
       );
-      promise.resolve("true");
+      promise.resolve(null);
     } catch (IllegalViewOperationException e) {
       e.printStackTrace();
-      promise.reject("Error: ", "false");
+      promise.reject(e);
     }
   }
 
@@ -208,11 +207,11 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
   public void setNavigationBarDividerColor(Integer color, Promise promise) {
     try {
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-        promise.reject("Error: ", "false");
+        promise.reject("Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP");
         return;
       }
       if (getCurrentActivity() == null) {
-        promise.reject("Error: ", "false");
+        promise.reject("getCurrentActivity() == null");
         return;
       }
       final Window view = getCurrentActivity().getWindow();
@@ -229,10 +228,10 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
           }
         }
       );
-      promise.resolve("true");
+      promise.resolve(null);
     } catch (IllegalViewOperationException e) {
       e.printStackTrace();
-      promise.reject("Error: ", "false");
+      promise.reject(e);
     }
   }
 
@@ -244,11 +243,11 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
   ) {
     try {
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-        promise.reject("Error: ", "false");
+        promise.reject("Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP");
         return;
       }
       if (getCurrentActivity() == null) {
-        promise.reject("Error: ", "false");
+        promise.reject("getCurrentActivity() == null");
         return;
       }
       final Window view = getCurrentActivity().getWindow();
@@ -259,10 +258,10 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
           }
         }
       );
-      promise.resolve("true");
+      promise.resolve(null);
     } catch (IllegalViewOperationException e) {
       e.printStackTrace();
-      promise.reject("Error: ", "false");
+      promise.reject(e);
     }
   }
 
@@ -272,22 +271,25 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
       runOnUiThread(
         () -> {
           if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            promise.reject("Error: ", "false");
+            promise.reject("Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP");
             return;
           }
           if (getCurrentActivity() == null) {
-            promise.reject("Error: ", "false");
+            promise.reject("getCurrentActivity() == null");
             return;
           }
           View decorView = getCurrentActivity().getWindow().getDecorView();
-
+          if (decorView == null) {
+            promise.reject("decorView == null");
+            return;
+          }
           decorView.setSystemUiVisibility(visibility);
         }
       );
-      promise.resolve("true");
+      promise.resolve(null);
     } catch (IllegalViewOperationException e) {
       e.printStackTrace();
-      promise.reject("Error: ", "false");
+      promise.reject(e);
     }
   }
 
@@ -310,7 +312,7 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
         () -> {
           if (Build.VERSION.SDK_INT >= 26) {
             if (getCurrentActivity() == null) {
-              promise.reject("Error: ", "false");
+              promise.reject("getCurrentActivity() == null");
               return;
             }
 
@@ -322,12 +324,13 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
               setBarStyle(light, View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
 
-            promise.resolve("true");
+            promise.resolve(null);
           }
         }
       );
     } catch (IllegalViewOperationException e) {
-      promise.reject("Error: ", "false");
+      e.printStackTrace();
+      promise.reject(e);
     }
   }
 }
