@@ -192,10 +192,11 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
           if (modeStyle != NO_MODE) {
             Boolean isLight = modeStyle.equals(LIGHT);
             setModeStyle(!isLight, bar, promise);
+          } else {
+            promise.resolve(null);
           }
         }
       );
-      promise.resolve(null);
     } catch (IllegalViewOperationException e) {
       e.printStackTrace();
       promise.reject(e);
@@ -226,9 +227,9 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
               );
           }
+          promise.resolve(null);
         }
       );
-      promise.resolve(null);
     } catch (IllegalViewOperationException e) {
       e.printStackTrace();
       promise.reject(e);
@@ -256,9 +257,9 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
           if (Build.VERSION.SDK_INT >= 29) {
             view.setNavigationBarContrastEnforced(enforceContrast);
           }
+          promise.resolve(null);
         }
       );
-      promise.resolve(null);
     } catch (IllegalViewOperationException e) {
       e.printStackTrace();
       promise.reject(e);
@@ -284,9 +285,9 @@ public class SystemNavigationBarModule extends ReactContextBaseJavaModule {
             return;
           }
           decorView.setSystemUiVisibility(visibility);
+          promise.resolve(null);
         }
       );
-      promise.resolve(null);
     } catch (IllegalViewOperationException e) {
       e.printStackTrace();
       promise.reject(e);
